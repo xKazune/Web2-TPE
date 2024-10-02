@@ -11,6 +11,11 @@ class GamesController{
         $this->view = new GamesView();
     }
 
+    public function showHome(){
+        return $this->view->showHome();
+    }
+
+    //Muestra todos los juegos. ¿Con detalles?
     public function showGames() {
         // obtengo los juegos de la DB
         $games = $this->model->getGames();
@@ -19,10 +24,24 @@ class GamesController{
         return $this->view->showGames($games);
     }
 
+    //Muestra el listado de las plataformas.
+    public function showPlatforms(){
+        $platforms = $this->model->getPlatforms();
+        return $this->view->showPlatforms($platforms);
+    }
+    
+    //Muestra los juegos de X Plataformas.
+    public function showGamesPlatforms(){
+
+    }
+
+    //Muestra un error.
     public function showError($error){
         return $this->view->showError($error);
     }
 
+
+    //Esto es del trabajo en clase
     public function addGame(){
         if(!isset($_POST['title']) || empty($_POST['title'])) {
             return $this->view->showError('Falta completar el título');
@@ -40,21 +59,21 @@ class GamesController{
         
             // redirijo al home 
             header('Location: ' . BASE_URL);
-        }
+    }
         
-        public function deleteGame($id) {
-            // obtengo la tarea por id
-            $game = $this->model->getGame($id);
-    
-            if (!$game) {
-                return $this->view->showError("No existe la tarea con el id=$id");
-            }
-    
-            // borro la tarea y redirijo
-            //$this->model->eraseGame($id);
-    
-            //header('Location: ' . BASE_URL);
+    public function deleteGame($id) {
+        // obtengo la tarea por id
+        $game = $this->model->getGame($id);
+
+        if (!$game) {
+            return $this->view->showError("No existe la tarea con el id=$id");
         }
+
+        // borro la tarea y redirijo
+        //$this->model->eraseGame($id);
+
+        //header('Location: ' . BASE_URL);
+    }
     
 
 

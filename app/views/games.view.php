@@ -1,12 +1,20 @@
 <?php
 
 class GamesView{
-    public function showGames($games) {
-        // la vista define una nueva variable con la cantida de tareas
-        $count = count($games);
 
-        // NOTA: el template va a poder acceder a todas las variables y constantes que tienen alcance en esta funcion
+    public function showHome(){
+        require 'templates/index.phtml';
+    }
+
+    public function showGames($games) {
+        $count = count($games);
         require 'templates/lista_juegos.phtml';
+    }
+
+    //Esto esta mal creo, porque ya tengo un mostrar
+    public function showPlatforms($platforms) {
+        $count = count($platforms);
+        require 'templates/lista_plataformas.phtml';
     }
 
 

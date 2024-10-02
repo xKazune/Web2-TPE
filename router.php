@@ -5,7 +5,7 @@ require_once 'app/controllers/games.controller.php';
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
 // Accion por defecto al abrir la pagina
-$action = 'listar'; 
+$action = 'index'; 
 if (!empty( $_GET['action'])) {
     $action = $_GET['action'];
 }
@@ -19,21 +19,33 @@ $params = explode('/', $action);
 
 
 switch ($params[0]) {
-    case 'listar':
+    case 'index':
+        $controller = new GamesController();
+        $controller->showHome();
+        break;
+    case 'listarJuegos':
         $controller = new GamesController();
         $controller->showGames();
+        break;
+    case 'listarPlataformas':
+        $controller = new GamesController();
+        $controller->showPlatforms();
         break;
     case 'nueva':
         $controller = new GamesController();
         $controller->addGame();
         break;
     case 'showLogin':
+        $controller = new GamesController();
+        $controller->showError("Falta por Hacer");
         break;
     case 'login':
+        $controller = new GamesController();
+        $controller->showError("Falta por Hacer");
         break;
     case 'error':
         $controller = new GamesController();
-        $controller->showError();
+        $controller->showError("404 Page Not Found");
         break;
     default:
         //Asi esta bien que se controle?

@@ -1,0 +1,11 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+<div class="p-3 mb-2 bg-dark text-white">Platforms List!</div>
+<ul class="list-group">
+<?php foreach($platforms as $platform): ?>
+  <li class="list-group-item"><b><?= $platform->nombrePlataforma ?></b> | <?=$platform->fabricante?> </li>
+  <?php endforeach ?>
+</ul>
+
+<p class="mt-3"><small>Showing <?=$count?> Platforms</small></p>
+<?php require 'templates/layout/footer.phtml' ?>

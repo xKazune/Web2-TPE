@@ -11,16 +11,24 @@ class GamesModel{
     }
 
     public function getGames() {
-        // 2. Ejecuto la consulta
+        //Ejecuto la consulta
         $query = $this->db->prepare('SELECT * FROM videojuegos');
         $query->execute();
     
-        // 3. Obtengo los datos en un arreglo de objetos
+        //Obtengo los datos en un arreglo de objetos
         $games = $query->fetchAll(PDO::FETCH_OBJ); 
     
         return $games;
     }
 
+    public function getPlatforms(){
+        $query = $this->db->prepare('SELECT * FROM plataformas');
+        $query->execute();
+        $platforms = $query->fetchAll(PDO::FETCH_OBJ);
+        return $platforms;
+    }
+
+    //codigo de lo que estan haciendo en clase medio editado.
     public function getGame($id) {    
         $query = $this->db->prepare('SELECT * FROM videojuegos WHERE id = ?');
         $query->execute([$id]);   
