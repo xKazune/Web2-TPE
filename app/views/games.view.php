@@ -6,6 +6,12 @@ class GamesView{
         $count = count($games);
 
         // NOTA: el template va a poder acceder a todas las variables y constantes que tienen alcance en esta funcion
-        require 'templates/prueba.php';
+        require 'templates/lista_juegos.phtml';
     }
+
+
+    public function showError($error){
+        require 'templates/error.phtml';
+    }
+
 }

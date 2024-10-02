@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-09-2024 a las 19:17:26
+-- Tiempo de generación: 30-09-2024 a las 18:47:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,6 +34,16 @@ CREATE TABLE `plataformas` (
   `tipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `plataformas`
+--
+
+INSERT INTO `plataformas` (`id_plataforma`, `nombrePlataforma`, `fabricante`, `tipo`) VALUES
+(1, 'Steam', 'Valve', 'PC'),
+(2, 'PlayStation', 'Sony', 'Consola'),
+(3, 'Xbox', 'Microsoft', 'Consola'),
+(4, 'Epic Games', 'Epic Games', 'PC');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +56,27 @@ CREATE TABLE `videojuegos` (
   `genero` varchar(50) NOT NULL,
   `id_plataforma` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `videojuegos`
+--
+
+INSERT INTO `videojuegos` (`id_videojuego`, `titulo`, `genero`, `id_plataforma`) VALUES
+(1, 'God Of War', 'Accion', 2),
+(2, 'World War Z', 'Accion', 1),
+(3, 'MotoGP24', 'Carreras', 3),
+(4, 'Forza Horizon 4', 'Carreras', 4),
+(5, 'EFotball 24', 'Deportes', 3),
+(6, 'EA FC 24', 'Deportes', 2),
+(7, 'Humankind', 'Estrategia', 4),
+(8, 'Norland', 'Estrategia', 1),
+(9, 'Counter Strike', 'Multijugador', 1),
+(10, 'Valorant', 'Multijugador', 2),
+(11, 'VallHeim', 'Multijugador', 4),
+(12, 'Formula 1', 'Carreras', 3),
+(13, 'Call of Duty', 'Accion', 3),
+(14, 'Hitman', 'Estrategia', 2),
+(15, 'WWE 2K24', 'Deportes', 1);
 
 --
 -- Índices para tablas volcadas
@@ -72,13 +103,13 @@ ALTER TABLE `videojuegos`
 -- AUTO_INCREMENT de la tabla `plataformas`
 --
 ALTER TABLE `plataformas`
-  MODIFY `id_plataforma` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_plataforma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `videojuegos`
 --
 ALTER TABLE `videojuegos`
-  MODIFY `id_videojuego` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_videojuego` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
