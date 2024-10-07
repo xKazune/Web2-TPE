@@ -20,7 +20,7 @@ class GamesController{
         // obtengo los juegos de la DB
         $games = $this->model->getGames();
 
-        // mando las tareas a la vista
+        // mando los juegos a la vista
         return $this->view->showGames($games);
     }
 
@@ -29,7 +29,65 @@ class GamesController{
         $platforms = $this->model->getPlatforms();
         return $this->view->showPlatforms($platforms);
     }
+
+    //Muestro el formulario
+    public function showForm(){
+        return $this->view->showForm();
+    }
+
+    //Agrega un Juego
+    public function addGame() {
+        //HAGO TODAS LAS VERIFICACIONES NECESARIAS
+        //DEBERIA VERIFICAR QUE LA PLATAFORMA O EL GENERO EXISTAN EN SU TABLA?
+
+        if (!isset($_POST['title']) || empty($_POST['title'])) {
+            return $this->view->showError('Falta agregar el titulo del juego.');
+        }
+        if (!isset($_POST['genre']) || empty($_POST['genre'])) {
+            return $this->view->showError('Falta agregar el genero del juego.');
+        }
+        if (!isset($_POST['platform']) || empty($_POST['platform'])) {
+            return $this->view->showError('Falta agregar la plataforma del juego.');
+        }
+
+        $title = $_POST['title'];
+        $genre = $_POST['genre'];
+        $platform = $_POST['platform'];
     
+        $id = $this->model->insertGame($title, $genre, $platform);
+    
+        // redirijo a la lista de juegos, ¿Funciona asi?
+        //  No funciono
+        //showGames();
+        header('Location: ' . BASE_URL);
+    }
+
+    //Borrar un juego
+    public function deleteGame($id) {
+        // obtengo el juego por el id que pase
+        $game = $this->model->getGame($id);
+
+        //Compruebo que el juego exista
+        if (!$game) {
+            return $this->view->showError("No existe el juego con el id=$id");
+        }
+
+        // borro el juego
+        $this->model->removeGame($id);
+
+        header('Location: ' . BASE_URL);
+    }
+
+    //Busco el juego por el ID
+    public function getGame($id) {    
+        $query = $this->db->prepare('SELECT * FROM videojuegos WHERE id = ?');
+        $query->execute([$id]);   
+    
+        $game = $query->fetch(PDO::FETCH_OBJ);
+    
+        return $game;
+    }
+
     //Muestra los juegos de X Plataformas.
     public function showGamesPlatforms(){
 
@@ -41,38 +99,24 @@ class GamesController{
     }
 
 
-    //Esto es del trabajo en clase
-    public function addGame(){
-        if(!isset($_POST['title']) || empty($_POST['title'])) {
-            return $this->view->showError('Falta completar el título');
-        }
-    
-        if (!isset($_POST['category']) || empty($_POST['priority'])) {
-            return $this->view->showError('Falta completar la prioridad');
-        }
-        
-        $title = $_POST['title'];
-        $description = $_POST['description'];
-        $category = $_POST['category'];
-        
-            $id = $this->model->insertTask($title, $description, $category);
-        
-            // redirijo al home 
-            header('Location: ' . BASE_URL);
-    }
-        
-    public function deleteGame($id) {
-        // obtengo la tarea por id
+    //Formulario de editar el juego
+    public function showFormEdit($id){
         $game = $this->model->getGame($id);
-
         if (!$game) {
-            return $this->view->showError("No existe la tarea con el id=$id");
+            return $this->view->showError("No existe el juego con el id=$id");
+        }
+        return $this->view->showFormEdit($game);
+    }
+
+    //Editar un juego FALTA
+    public function editGame($id){
+        $game = $this->model->getGame($id);
+        if (!$game) {
+            return $this->view->showError("No existe el juego con el id=$id");
         }
 
-        // borro la tarea y redirijo
-        //$this->model->eraseGame($id);
-
-        //header('Location: ' . BASE_URL);
+        //tengo que abrir un formulario y poder hacer que rellene los datos
+        $this->model->changeGame($id);
     }
     
 

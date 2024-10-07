@@ -9,36 +9,50 @@ define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] 
 
 $res = new Response();
 
-$action = 'listar'; // accion por defecto si no se envia ninguna
+// Accion por defecto al abrir la pagina
+$action = 'index'; 
 if (!empty( $_GET['action'])) {
     $action = $_GET['action'];
 }
 
 // tabla de ruteo
 
-// listar  -> TaskController->showTask();
-// nueva  -> TaskController->addTask();
-// eliminar/:ID  -> TaskController->deleteTask($id);
-// finalizar/:ID -> TaskController->finishTask($id);
-// ver/:ID -> TaskController->view($id); COMPLETAR
+// index -> GamesController->showHome();
+// listarJuegos  -> GamesController->showGames();
+// listarPlataformas  -> GamesController->showPlataforms();
+// agregar -> GamesController->addGame();
+// borrar -> GamesController->deleteGame();
+// login -> GamesController->showLogin();
+// formJuego -> GamesController->showForm();
+// formEditar -> GamesController->showFormEdit();
+// editar -> GamesController->editGame();
 
-// parsea la accion para separar accion real de parametros
 $params = explode('/', $action);
 
 switch ($params[0]) {
-    case 'listar':
-        sessionAuthMiddleware($res); // Verifica que el usuario esté logueado y setea $res->user o redirige a login
-        $controller = new gamesController($res);
+    case 'index':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->showHome();
+        break;
+    case 'listarJuegos':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
         $controller->showGames();
         break;
-    case 'nueva':
+    case 'listarPlataformas':
         sessionAuthMiddleware($res);
-        $controller = new gamesController($res);
+        $controller = new GamesController($res);
+        $controller->showPlatforms();
+        break;
+    case 'agregar':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
         $controller->addGame();
         break;
-    case 'eliminar':
+    case 'borrar':
         sessionAuthMiddleware($res);
-        $controller = new gamesController($res);
+        $controller = new GamesController($res);
         $controller->deleteGame($params[1]);
         break;
     case 'showLogin':
@@ -52,7 +66,31 @@ switch ($params[0]) {
     case 'logout':
         $controller = new AuthController();
         $controller->logout();
-    default: 
-        echo "404 Page Not Found"; // deberiamos llamar a un controlador que maneje esto
+        break;
+    case 'formJuego':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->showForm();
+        break;
+    case 'formEditar':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->showFormEdit($params[1]);
+        break;
+    case 'editar':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->editGame($params[1]);
+        break;
+    case 'error':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController();
+        $controller->showError("404 Page Not Found");
+        break;
+    default:
+        //Asi esta bien que se controle?
+        $controller = new GamesController();
+        $error= "404 Page Not Found";
+        $controller->showError($error); 
         break;
 }

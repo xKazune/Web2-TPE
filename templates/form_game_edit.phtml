@@ -1,7 +1,10 @@
 <?php require 'templates/layout/header.phtml' ?>
-<!-- Formulario para Agregar juegos -->
+<!-- Formulario para editar juegos -->
 
-<form action="agregar" method="POST" class="my-4">
+<h1>Game to edit.</h1>
+<b><?= $game->titulo ?></b> | <b><?=$game->genero?></b> 
+<form action="editar" method="POST" class="my-4">
+    <!-- Como le paso el id del videojuego? -->
     <div class="row">
         <div class="col-7">
             <div class="form-group">
@@ -18,17 +21,6 @@
                     <option value="Multijugador">Multijugador</option>
                     <option value="Estrategia">Estrategia</option>
                     <option value="Deportes">Deportes</option>
-                </select>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label>Plataforma</label>
-                <select required name="platform" class="form-control">
-                    <option value="1">Steam</option>
-                    <option value="2">Playstation</option>
-                    <option value="3">Xbox</option>
-                    <option value="4">Epic Games</option>
                 </select>
             </div>
         </div>

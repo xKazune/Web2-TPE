@@ -21,6 +21,7 @@ class GamesModel{
         return $games;
     }
 
+    //Obtengo las plataformas
     public function getPlatforms(){
         $query = $this->db->prepare('SELECT * FROM plataformas');
         $query->execute();
@@ -28,27 +29,29 @@ class GamesModel{
         return $platforms;
     }
 
-    //codigo de lo que estan haciendo en clase medio editado.
-    public function getGame($id) {    
-        $query = $this->db->prepare('SELECT * FROM videojuegos WHERE id = ?');
-        $query->execute([$id]);   
+    //Agrego el juego
+    public function insertGame($title, $genre, $platform) { 
+        //Asi esta bien que agregue la plataforma?
+        $query = $this->db->prepare('INSERT INTO videojuegos(titulo, genero, id_plataforma) VALUES (?, ?, ?)');
+        $query->execute([$title, $genre, $platform]);
     
-        $games = $query->fetch(PDO::FETCH_OBJ);
-    
-        return $games;
-    }
-
-    public function insertTask($title, $description, $category, $finished = false) { 
-        $query = $this->db->prepare('INSERT INTO videojuegos(titulo, descripcion, categoria, finalizada) VALUES (?, ?, ?, ?)');
-        $query->execute([$title, $description, $category, $finished]);
-    
+        // ¿ESTO SERVIRA PARA ALGO?
         $id = $this->db->lastInsertId();
-    
         return $id;
     }
 
-    public function eraseGame($id) {
-        $query = $this->db->prepare('DELETE FROM videojuegos WHERE id = ?');
+
+    //obtengo el juego por el id
+    public function getGame($id) {    
+        $query = $this->db->prepare('SELECT * FROM videojuegos WHERE id_videojuego = ?');
+        $query->execute([$id]);   
+        $games = $query->fetch(PDO::FETCH_OBJ);
+        return $games;
+    }
+
+    //borro el juego
+    public function removeGame($id) {
+        $query = $this->db->prepare('DELETE FROM videojuegos WHERE id_videojuego = ?');
         $query->execute([$id]);
     }
  
