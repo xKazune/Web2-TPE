@@ -5,7 +5,7 @@ require_once './app/views/games.view.php';
 class GamesController{
     private $model;
     private $view;
-
+                                
     public function __construct($res) {
         $this->model = new GamesModel();
         $this->view = new GamesView($res->user);

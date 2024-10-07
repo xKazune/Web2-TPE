@@ -36,6 +36,7 @@ switch ($params[0]) {
         $controller->showHome();
         break;
     case 'listarJuegos':
+        //REVISAR EL SESSIONAUTHMIDDLEWARE
         sessionAuthMiddleware($res);
         $controller = new GamesController($res);
         $controller->showGames();
