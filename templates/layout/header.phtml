@@ -20,6 +20,9 @@
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <!-- Si quiero hacer que esto funcione como un boton es probable que deba usar JavaScript-->
             <span class="fs-4" href="home">GamesNight!</span>
+            <?php if($this->user): ?>
+                    <span class="navbar-text"><?= $this->user->email ?></span>
+                <?php endif; ?>
           </a>
           <ul class="nav nav-pills">
             <li class="nav-item"><a href="index" class="nav-link" aria-current="page">Home</a></li>

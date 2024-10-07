@@ -6,9 +6,9 @@ class GamesController{
     private $model;
     private $view;
 
-    public function __construct() {
+    public function __construct($res) {
         $this->model = new GamesModel();
-        $this->view = new GamesView();
+        $this->view = new GamesView($res->user);
     }
 
     public function showHome(){

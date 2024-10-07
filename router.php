@@ -1,56 +1,58 @@
 <?php
+require_once 'libs/response.php';
+require_once 'app/middlewares/session.auth.middleware.php';
 require_once 'app/controllers/games.controller.php';
+require_once 'app/controllers/auth.controller.php';
 
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
-// Accion por defecto al abrir la pagina
-$action = 'index'; 
+$res = new Response();
+
+$action = 'listar'; // accion por defecto si no se envia ninguna
 if (!empty( $_GET['action'])) {
     $action = $_GET['action'];
 }
 
+// tabla de ruteo
 
-// Tabla de ruteo
+// listar  -> TaskController->showTask();
+// nueva  -> TaskController->addTask();
+// eliminar/:ID  -> TaskController->deleteTask($id);
+// finalizar/:ID -> TaskController->finishTask($id);
+// ver/:ID -> TaskController->view($id); COMPLETAR
 
-// listar  -> GamesController->showGames();
-
+// parsea la accion para separar accion real de parametros
 $params = explode('/', $action);
 
-
 switch ($params[0]) {
-    case 'index':
-        $controller = new GamesController();
-        $controller->showHome();
-        break;
-    case 'listarJuegos':
-        $controller = new GamesController();
+    case 'listar':
+        sessionAuthMiddleware($res); // Verifica que el usuario esté logueado y setea $res->user o redirige a login
+        $controller = new gamesController($res);
         $controller->showGames();
         break;
-    case 'listarPlataformas':
-        $controller = new GamesController();
-        $controller->showPlatforms();
-        break;
     case 'nueva':
-        $controller = new GamesController();
+        sessionAuthMiddleware($res);
+        $controller = new gamesController($res);
         $controller->addGame();
         break;
+    case 'eliminar':
+        sessionAuthMiddleware($res);
+        $controller = new gamesController($res);
+        $controller->deleteGame($params[1]);
+        break;
     case 'showLogin':
-        $controller = new GamesController();
-        $controller->showError("Falta por Hacer");
+        $controller = new AuthController();
+        $controller->showLogin();
         break;
     case 'login':
-        $controller = new GamesController();
-        $controller->showError("Falta por Hacer");
+        $controller = new AuthController();
+        $controller->login();
         break;
-    case 'error':
-        $controller = new GamesController();
-        $controller->showError("404 Page Not Found");
-        break;
-    default:
-        //Asi esta bien que se controle?
-        $controller = new GamesController();
-        $error= "404 Page Not Found";
-        $controller->showError($error); 
+    case 'logout':
+        $controller = new AuthController();
+        $controller->logout();
+    default: 
+        echo "404 Page Not Found"; // deberiamos llamar a un controlador que maneje esto
         break;
 }

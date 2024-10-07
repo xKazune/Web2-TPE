@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2024 a las 18:47:11
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 07-10-2024 a las 20:50:16
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `plataformas` (
   `nombrePlataforma` varchar(50) NOT NULL,
   `fabricante` varchar(50) NOT NULL,
   `tipo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `plataformas`
@@ -47,6 +47,26 @@ INSERT INTO `plataformas` (`id_plataforma`, `nombrePlataforma`, `fabricante`, `t
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `password` char(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `email`, `password`) VALUES
+(1, 'vargas@gmail.com', 'vargasdiez'),
+(2, 'sandez@gmail.com', 'sandezuno');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `videojuegos`
 --
 
@@ -55,7 +75,7 @@ CREATE TABLE `videojuegos` (
   `titulo` varchar(50) NOT NULL,
   `genero` varchar(50) NOT NULL,
   `id_plataforma` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `videojuegos`
@@ -89,6 +109,13 @@ ALTER TABLE `plataformas`
   ADD PRIMARY KEY (`id_plataforma`);
 
 --
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indices de la tabla `videojuegos`
 --
 ALTER TABLE `videojuegos`
@@ -104,6 +131,12 @@ ALTER TABLE `videojuegos`
 --
 ALTER TABLE `plataformas`
   MODIFY `id_plataforma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `videojuegos`
