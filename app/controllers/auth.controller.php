@@ -31,8 +31,13 @@ class AuthController {
         // Verificar que el usuario está en la base de datos
         $userFromDB = $this->model->getUserByEmail($email);
 
-        // password: 123456
-        // $userFromDB->password: $2y$10$xQop0wF1YJ/dKhZcWDqHceUM96S04u73zGeJtU80a1GmM.H5H0EHC
+        //email y contraseña de la db:
+        //email vargas:vargasjeronimo@gmail.com
+        //email sandez:sandezdamian@gmail.com
+
+        //contraseña vargas:$2y$10$TiVxmAbKp5zj.RWwrUGidul1gHAJTE71gXVQq6cNh8cjeRhKQkKWq(hash) = (12345)
+        //contraseña sandez:$2y$10$MYmNQvELqQeukC5et2H94eOlqTTVAHpJgJ7ojoGtYIHT8FO5wljUq(hash) = (6789)
+
         if($userFromDB && password_verify($password, $userFromDB->password)){
             // Guardo en la sesión el ID del usuario
             session_start();
@@ -53,4 +58,3 @@ class AuthController {
         header('Location: ' . BASE_URL);
     }
 }
-

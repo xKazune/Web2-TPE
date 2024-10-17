@@ -25,10 +25,17 @@
                 <?php endif; ?>
           </a>
           <ul class="nav nav-pills">
+          
             <li class="nav-item"><a href="index" class="nav-link" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="listarJuegos" class="nav-link">Games</a></li>
             <li class="nav-item"><a href="listarPlataformas" class="nav-link">Platforms</a></li>
             <li class="nav-item"><a href="login" class="nav-link">Login</a></li>
+            <?php if($this->user): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="logout">Salir</a>
+                            </li>
+                        <?php endif; ?>
           </ul>
+          
         </header>
     </div>

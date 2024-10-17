@@ -1,6 +1,7 @@
 <?php
 require_once 'libs/response.php';
 require_once 'app/middlewares/session.auth.middleware.php';
+require_once 'app/middlewares/verify.auth.middleware.php';
 require_once 'app/controllers/games.controller.php';
 require_once 'app/controllers/auth.controller.php';
 
@@ -38,6 +39,7 @@ switch ($params[0]) {
     case 'listarJuegos':
         //REVISAR EL SESSIONAUTHMIDDLEWARE
         sessionAuthMiddleware($res);
+        
         $controller = new GamesController($res);
         $controller->showGames();
         break;
@@ -47,12 +49,14 @@ switch ($params[0]) {
         $controller->showPlatforms();
         break;
     case 'agregar':
-        sessionAuthMiddleware($res);
+        sessionAuthMiddleware($res);//setea %res -> user si existe session
+        verifyAuthMiddleware($res);//verifica que el usuario este logueado o redirije a la sesion
         $controller = new GamesController($res);
         $controller->addGame();
         break;
     case 'borrar':
         sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new GamesController($res);
         $controller->deleteGame($params[1]);
         break;
@@ -75,22 +79,24 @@ switch ($params[0]) {
         break;
     case 'formEditar':
         sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new GamesController($res);
         $controller->showFormEdit($params[1]);
         break;
     case 'editar':
         sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new GamesController($res);
         $controller->editGame($params[1]);
         break;
     case 'error':
         sessionAuthMiddleware($res);
-        $controller = new GamesController();
+      //$controller = new GamesController();
         $controller->showError("404 Page Not Found");
         break;
     default:
         //Asi esta bien que se controle?
-        $controller = new GamesController();
+       $controller = new GamesController();
         $error= "404 Page Not Found";
         $controller->showError($error); 
         break;

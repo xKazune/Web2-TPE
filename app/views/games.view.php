@@ -1,6 +1,12 @@
 <?php
 
 class GamesView{
+    private $user = null;
+
+    public function __construct($user) {
+        $this->user = $user;
+    }
+
 
     public function showHome(){
         require 'templates/index.phtml';

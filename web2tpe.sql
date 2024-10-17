@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2024 a las 20:50:16
+-- Tiempo de generación: 17-10-2024 a las 20:56:06
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -52,8 +52,8 @@ INSERT INTO `plataformas` (`id_plataforma`, `nombrePlataforma`, `fabricante`, `t
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `password` char(60) NOT NULL
+  `email` varchar(250) NOT NULL,
+  `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -61,8 +61,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `email`, `password`) VALUES
-(1, 'vargas@gmail.com', 'vargasdiez'),
-(2, 'sandez@gmail.com', 'sandezuno');
+(0, 'sandezdamian@gmail.com', '$2y$10$MYmNQvELqQeukC5et2H94eOlqTTVAHpJgJ7ojoGtYIHT8FO5wljUq'),
+(1, 'vargasjeronimo@gmail.com', '$2y$10$TiVxmAbKp5zj.RWwrUGidul1gHAJTE71gXVQq6cNh8cjeRhKQkKWq');
 
 -- --------------------------------------------------------
 
@@ -82,9 +82,6 @@ CREATE TABLE `videojuegos` (
 --
 
 INSERT INTO `videojuegos` (`id_videojuego`, `titulo`, `genero`, `id_plataforma`) VALUES
-(1, 'God Of War', 'Accion', 2),
-(2, 'World War Z', 'Accion', 1),
-(3, 'MotoGP24', 'Carreras', 3),
 (4, 'Forza Horizon 4', 'Carreras', 4),
 (5, 'EFotball 24', 'Deportes', 3),
 (6, 'EA FC 24', 'Deportes', 2),
@@ -131,12 +128,6 @@ ALTER TABLE `videojuegos`
 --
 ALTER TABLE `plataformas`
   MODIFY `id_plataforma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `videojuegos`

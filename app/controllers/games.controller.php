@@ -79,7 +79,8 @@ class GamesController{
     }
 
     //Busco el juego por el ID
-    public function getGame($id) {    
+    public function getGame($id) {  
+        
         $query = $this->db->prepare('SELECT * FROM videojuegos WHERE id = ?');
         $query->execute([$id]);   
     
@@ -119,6 +120,12 @@ class GamesController{
         $this->model->changeGame($id);
     }
     
+    //Plataformas
+
+    //agregar plataforma
+
+    
+
 
 
 }
