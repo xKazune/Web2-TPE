@@ -39,7 +39,6 @@ switch ($params[0]) {
     case 'listarJuegos':
         //REVISAR EL SESSIONAUTHMIDDLEWARE
         sessionAuthMiddleware($res);
-        
         $controller = new GamesController($res);
         $controller->showGames();
         break;
@@ -49,7 +48,7 @@ switch ($params[0]) {
         $controller->showPlatforms();
         break;
     case 'agregar':
-        sessionAuthMiddleware($res);//setea %res -> user si existe session
+        sessionAuthMiddleware($res);//setea $res -> user si existe session
         verifyAuthMiddleware($res);//verifica que el usuario este logueado o redirije a la sesion
         $controller = new GamesController($res);
         $controller->addGame();
@@ -91,12 +90,12 @@ switch ($params[0]) {
         break;
     case 'error':
         sessionAuthMiddleware($res);
-      //$controller = new GamesController();
+        //$controller = new GamesController();
         $controller->showError("404 Page Not Found");
         break;
     default:
         //Asi esta bien que se controle?
-       $controller = new GamesController();
+        $controller = new GamesController();
         $error= "404 Page Not Found";
         $controller->showError($error); 
         break;
