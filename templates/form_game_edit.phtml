@@ -4,7 +4,8 @@
 <h1>Game to edit.</h1>
 <b><?= $game->titulo ?></b> | <b><?=$game->genero?></b> 
 <form action="editar" method="POST" class="my-4">
-    <!-- Como le paso el id del videojuego? -->
+    <!--Envio el id del juego de forma oculta-->
+    <input type="hidden" name="game_id" value="<?= $game->id_videojuego ?>">
     <div class="row">
         <div class="col-7">
             <div class="form-group">
@@ -14,8 +15,7 @@
         </div>
         <div class="col">
             <div class="form-group">
-                <label>Categoria</label>
-                <!-- HACER ESTO CON UN FOR -->
+                <label>Genero</label>
                 <select required name="genre" class="form-control">
                     <option value="Accion">Accion</option>
                     <option value="Carreras">Carreras</option>

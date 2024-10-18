@@ -1,0 +1,28 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+
+<form action="agregar" method="POST" class="my-4">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Plataforma</label>
+                <input required name="plataforma" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>Fabricante</label>
+                <input required name="compania" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>Tipo (pc,consola ,etc)</label>
+                <input required name="tipo" type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+</form>
+
+<?php require 'templates/layout/footer.phtml' ?>

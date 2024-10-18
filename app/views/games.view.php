@@ -12,7 +12,7 @@ class GamesView{
         require 'templates/index.phtml';
     }
 
-    public function showForm(){
+    public function showForm($platforms){
         require 'templates/form_game.phtml';
     }
 
@@ -25,7 +25,6 @@ class GamesView{
         require 'templates/lista_juegos.phtml';
     }
 
-    //Esto esta mal creo, porque ya tengo un mostrar
     public function showPlatforms($platforms) {
         $count = count($platforms);
         require 'templates/lista_plataformas.phtml';
@@ -33,6 +32,10 @@ class GamesView{
 
     public function showError($error){
         require 'templates/error.phtml';
+    }
+
+    public function showFormPlataforma(){
+        require 'templates/addplataform.phtml';
     }
 
 }

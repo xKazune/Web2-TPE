@@ -2,12 +2,12 @@
 
 class GamesModel{
     private $db;
-    private $dbusers;
 
     public function __construct() {
        $this->db = new PDO('mysql:host=localhost;dbname=web2tpe;charset=utf8', 'root', '');
     }
 
+    //Obtengo los juegos
     public function getGames() {
         //Ejecuto la consulta
         $query = $this->db->prepare('SELECT * FROM videojuegos');
@@ -29,13 +29,8 @@ class GamesModel{
 
     //Agrego el juego
     public function insertGame($title, $genre, $platform) { 
-        //Asi esta bien que agregue la plataforma?
         $query = $this->db->prepare('INSERT INTO videojuegos(titulo, genero, id_plataforma) VALUES (?, ?, ?)');
         $query->execute([$title, $genre, $platform]);
-    
-        // ¿ESTO SERVIRA PARA ALGO?
-        $id = $this->db->lastInsertId();
-        return $id;
     }
 
 
@@ -52,6 +47,29 @@ class GamesModel{
         $query = $this->db->prepare('DELETE FROM videojuegos WHERE id_videojuego = ?');
         $query->execute([$id]);
     }
- 
+
+    //Edito el juego
+    public function changeGame($id,$title,$genre){
+        $query = $this->db->prepare('UPDATE videojuegos SET titulo = ?, genero = ? WHERE id_videojuego = ?');
+        $query->execute([$title,$genre,$id]);
+    }
+
+    //Agrego la plataforma
+    public function insertPlataform($plataforma, $compania,$tipo) { 
+        $query = $this->db->prepare('INSERT INTO plataformas(nombrePlataforma, fabricante, tipo) VALUES (?, ?, ?)');
+        $query->execute([$plataforma, $compania,$tipo]);
+    }
+
+    public function getPlataform($id) {    
+        $query = $this->db->prepare('SELECT * FROM plataformas WHERE id_plataforma = ?');
+        $query->execute([$id]);   
+        $plataforms = $query->fetch(PDO::FETCH_OBJ);
+        return $plataforms;
+    }
+
+    public function removePlataform($id) {
+        $query = $this->db->prepare('DELETE FROM plataformas WHERE id_plataforma = ?');
+        $query->execute([$id]);
+    }
  
 }

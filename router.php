@@ -16,7 +16,7 @@ if (!empty( $_GET['action'])) {
     $action = $_GET['action'];
 }
 
-// tabla de ruteo
+// tabla de ruteo (ACTUALIZAR)
 
 // index -> GamesController->showHome();
 // listarJuegos  -> GamesController->showGames();
@@ -37,7 +37,6 @@ switch ($params[0]) {
         $controller->showHome();
         break;
     case 'listarJuegos':
-        //REVISAR EL SESSIONAUTHMIDDLEWARE
         sessionAuthMiddleware($res);
         $controller = new GamesController($res);
         $controller->showGames();
@@ -86,12 +85,29 @@ switch ($params[0]) {
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new GamesController($res);
-        $controller->editGame($params[1]);
+        $controller->editGame();
         break;
     case 'error':
         sessionAuthMiddleware($res);
         //$controller = new GamesController();
         $controller->showError("404 Page Not Found");
+        break;
+    case 'formAñadirPlataforma':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->showFormPlataforma();
+        break;
+    case 'añadirPlataforma':
+        sessionAuthMiddleware($res);//setea %res -> user si existe session
+        verifyAuthMiddleware($res);//verifica que el usuario este logueado o redirije a la sesion
+        $controller = new GamesController($res);
+        $controller->addPlataform();
+        break;
+    case 'eliminarPlataforma':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->deletePlataform($params[1]);
         break;
     default:
         //Asi esta bien que se controle?
