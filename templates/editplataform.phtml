@@ -1,7 +1,10 @@
 <?php require 'templates/layout/header.phtml' ?>
+<!-- Formulario para editar juegos -->
 
-
-<form action="añadirPlataforma" method="POST" class="my-4">
+<h1>Platform to edit.</h1>
+<b><?= $platform->nombrePlataforma ?></b> | <b><?=$platform->fabricante?></b>
+<form action="editarPlataforma" method="POST" class="my-4">
+    <input type="hidden" name="platform_id" value="<?= $platform->id_plataforma ?>">
     <div class="row">
         <div class="col">
             <div class="form-group">

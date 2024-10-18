@@ -71,5 +71,10 @@ class GamesModel{
         $query = $this->db->prepare('DELETE FROM plataformas WHERE id_plataforma = ?');
         $query->execute([$id]);
     }
+
+    public function changePlatform($id, $plataforma, $compania, $tipo){
+        $query = $this->db->prepare('UPDATE plataformas SET nombrePlataforma = ?, fabricante = ?, tipo = ? WHERE id_plataforma = ?');
+        $query->execute([$plataforma,$compania,$tipo,$id]);
+    }
  
 }

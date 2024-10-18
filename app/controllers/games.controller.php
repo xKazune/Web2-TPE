@@ -108,6 +108,15 @@ class GamesController{
         return $this->view->showFormEdit($game);
     }
 
+    //Formulario de editar plataforma
+    public function showFormEditPlatform($id){
+        $platform = $this->model->getPlataform($id);
+        if (!$platform) {
+            return $this->view->showError("No existe el juego con el id=$id");
+        }
+        return $this->view->showFormEditPlatform($platform);
+    }
+
     //Editar un juego
     public function editGame(){
         //paso el id por el formulario
@@ -155,11 +164,7 @@ class GamesController{
         $tipo = $_POST['tipo'];
         
     
-        $id = $this->model->insertPlataform($plataforma , $compania,$tipo);
-    
-        // redirijo a la lista de juegos, ¿Funciona asi?
-        //  No funciono
-        //showGames();
+        $this->model->insertPlataform($plataforma , $compania,$tipo);
         header('Location: ' . BASE_URL . 'listarPlataformas');
     }
 
@@ -170,12 +175,40 @@ class GamesController{
 
         //Compruebo que la plataforma exista
         if (!$plataform) {
-            return $this->view->showError("No existe el juego con el id=$id");
+            return $this->view->showError("No existe la plataforma con el id=$id");
         }
 
         // borro la plataforma
-        $this->model->removeGame($id);
+        $this->model->removePlataform($id);
 
+        header('Location: ' . BASE_URL . 'listarPlataformas');
+    }
+
+    //Edito la plataforma
+    public function editPlatform(){
+        //paso el id por el formulario
+        $id = $_POST['platform_id'];
+        //verefico si existe la plataforma
+        $platform = $this->model->getPlataform($id);
+        if (!$platform) {
+            return $this->view->showError("No existe la plataforma con el id=$id");
+        }
+        //hago las verificaciones restantes
+        if (!isset($_POST['plataforma']) || empty($_POST['plataforma'])) {
+            return $this->view->showError('Falta agregar la plataforma');
+        }
+        if (!isset($_POST['compania']) || empty($_POST['compania'])) {
+            return $this->view->showError('Falta agregar la empresa');
+        }
+        if (!isset($_POST['tipo']) || empty($_POST['tipo'])) {
+            return $this->view->showError('Falta agregar el tipo');
+        }
+        $plataforma = $_POST['plataforma'];
+        $compania = $_POST['compania'];
+        $tipo = $_POST['tipo'];
+
+        //edito la plataforma
+        $this->model->changePlatform($id, $plataforma, $compania, $tipo);
         header('Location: ' . BASE_URL . 'listarPlataformas');
     }
 }

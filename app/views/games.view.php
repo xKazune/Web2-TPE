@@ -38,4 +38,8 @@ class GamesView{
         require 'templates/addplataform.phtml';
     }
 
+    public function showFormEditPlatform($platform){
+        require 'templates/editplataform.phtml';
+    }
+
 }

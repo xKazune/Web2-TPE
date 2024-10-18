@@ -87,11 +87,6 @@ switch ($params[0]) {
         $controller = new GamesController($res);
         $controller->editGame();
         break;
-    case 'error':
-        sessionAuthMiddleware($res);
-        //$controller = new GamesController();
-        $controller->showError("404 Page Not Found");
-        break;
     case 'formAñadirPlataforma':
         sessionAuthMiddleware($res);
         $controller = new GamesController($res);
@@ -103,12 +98,30 @@ switch ($params[0]) {
         $controller = new GamesController($res);
         $controller->addPlataform();
         break;
+    //VER ESTO
+    case 'editarPlataforma':
+        sessionAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->editPlatform();
+        break;
+    case 'formEditarPlataforma':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new GamesController($res);
+        $controller->showFormEditPlatform($params[1]);
+        break;    
+    //VER ESTO
     case 'eliminarPlataforma':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new GamesController($res);
         $controller->deletePlataform($params[1]);
         break;
+    case 'error':
+        sessionAuthMiddleware($res);
+        //$controller = new GamesController();
+        $controller->showError("404 Page Not Found");
+        break;    
     default:
         //Asi esta bien que se controle?
         $controller = new GamesController();
