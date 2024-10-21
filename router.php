@@ -98,7 +98,6 @@ switch ($params[0]) {
         $controller = new GamesController($res);
         $controller->addPlataform();
         break;
-    //VER ESTO
     case 'editarPlataforma':
         sessionAuthMiddleware($res);
         $controller = new GamesController($res);
@@ -110,7 +109,6 @@ switch ($params[0]) {
         $controller = new GamesController($res);
         $controller->showFormEditPlatform($params[1]);
         break;    
-    //VER ESTO
     case 'eliminarPlataforma':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);

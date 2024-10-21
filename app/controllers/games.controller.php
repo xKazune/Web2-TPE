@@ -15,7 +15,7 @@ class GamesController{
         return $this->view->showHome();
     }
 
-    //Muestra todos los juegos. ¿Con detalles?
+    //Muestra todos los juegos
     public function showGames() {
         // obtengo los juegos de la DB
         $games = $this->model->getGames();
@@ -39,7 +39,6 @@ class GamesController{
     //Agrega un Juego
     public function addGame() {
         //HAGO TODAS LAS VERIFICACIONES NECESARIAS
-        //DEBERIA VERIFICAR QUE LA PLATAFORMA O EL GENERO EXISTAN EN SU TABLA?
 
         if (!isset($_POST['title']) || empty($_POST['title'])) {
             return $this->view->showError('Falta agregar el titulo del juego.');
@@ -88,16 +87,10 @@ class GamesController{
         return $game;
     }
 
-    //Muestra los juegos de X Plataformas.
-    public function showGamesPlatforms(){
-
-    }
-
     //Muestra un error.
     public function showError($error){
         return $this->view->showError($error);
     }
-
 
     //Formulario de editar el juego
     public function showFormEdit($id){
